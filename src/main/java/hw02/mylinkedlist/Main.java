@@ -1,4 +1,4 @@
-package hw02;
+package hw02.mylinkedlist;
 
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
@@ -23,6 +23,11 @@ public class Main {
         mll.remvoe("13");
         mll.remvoe("1");
         mll.remvoe("52");
+        mll.remvoe("42");
+        mll.remvoe("52");
+        mll.remvoe("52");
+        mll.remvoe("3");
+        mll.remvoe("4");
         System.out.println(mll);
 
 //        LinkedList<String> linkedList = new LinkedList<>();
