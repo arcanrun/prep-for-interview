@@ -1,9 +1,5 @@
 package hw02.myarraylist;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         MyArrayList<String> arr = new MyArrayList<>();

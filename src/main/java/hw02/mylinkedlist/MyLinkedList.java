@@ -3,11 +3,12 @@ package hw02.mylinkedlist;
 public class MyLinkedList<T> {
     private Node firstNode;
     private Node lastNode;
+    private int size;
 
     private class Node {
-        T value;
-        Node next;
-        Node prev;
+        private T value;
+        private Node next;
+        private Node prev;
 
         Node(T value) {
             this.value = value;
@@ -26,7 +27,7 @@ public class MyLinkedList<T> {
 
         @Override
         public String toString() {
-            return value.toString() + "@" + hashCode();
+            return value.toString();
         }
     }
 
@@ -46,6 +47,7 @@ public class MyLinkedList<T> {
             prevNode.next = node;
             prevNode = node;
         }
+        size = values.length;
         lastNode = prevNode;
 
     }
@@ -54,6 +56,7 @@ public class MyLinkedList<T> {
         if (firstNode == null) {
             firstNode = new Node(value);
             lastNode = firstNode;
+            size++;
 
             return true;
 
@@ -61,7 +64,31 @@ public class MyLinkedList<T> {
         Node newNode = new Node(value, lastNode);
         lastNode.next = newNode;
         lastNode = newNode;
+        size++;
         return true;
+    }
+
+    public T get(int index) {
+        if (firstNode == null) {
+            throw new RuntimeException("List is empty");
+        }
+        if (index < 0 || index > size - 1) {
+            throw new IndexOutOfBoundsException("index = " + index + ", while size is " + size);
+        }
+        if (index == 0) {
+            return firstNode.value;
+        }
+        if (index == size - 1) {
+            return lastNode.value;
+        }
+
+        Node current = firstNode;
+
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.value;
+
     }
 
     public boolean remvoe(T value) {
@@ -71,31 +98,50 @@ public class MyLinkedList<T> {
         Node current = firstNode;
         while (!current.value.equals(value)) {
             current = current.next;
-            if(current == null){
+            if (current == null) {
                 return false;
             }
         }
         if (firstNode == current) {
             if (firstNode.next == null) {
                 firstNode = null;
+                size--;
                 return true;
             }
             firstNode = firstNode.next;
             firstNode.prev = null;
+            size--;
             return true;
         }
         if (lastNode == current) {
             if (lastNode.prev == null) {
                 lastNode = null;
+                size--;
                 return true;
             }
             lastNode = lastNode.prev;
             lastNode.next = null;
+            size--;
             return true;
         }
         current.prev.next = current.next;
         current.next.prev = current.prev;
+        size--;
         return true;
+    }
+
+    public T getFirst() {
+        if (firstNode == null) {
+            throw new RuntimeException("List is empty");
+        }
+        return firstNode.value;
+    }
+
+    public T getLast() {
+        if (firstNode == null) {
+            throw new RuntimeException("List is empty");
+        }
+        return lastNode.value;
     }
 
     @Override
