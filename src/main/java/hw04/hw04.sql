@@ -26,7 +26,7 @@ create table if not exists ticket
 );
 
 
------------------- init data -----------------------------------
+------------------ getSessionFactory data -----------------------------------
 insert into movie (title, duration)
 values ('Terminator', 60),
        ('Terminator-2', 60),
