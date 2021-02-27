@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
 
+<div class="container">
+
+    <form th:action="@{/}" th:method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control" id="name" name="name"/>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">age</label>
+            <input type="number" class="form-control" id="age" name="age"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${students}">
+            <th th:text="${s.id}" scope="row">id</th>
+            <td>
+                <a class="btn btn-warning" th:href="@{/{id}(id=${s.id})}" th:text="${s.name}">name</a>
+            </td>
+            <td th:text="${s.age}">age</td>
+            <td>
+                <form style="text-align: center" th:action="@{/{id}(id=${s.id})}" th:method="delete">
+                    <button class="remove_item_btn" type="submit">
+                        x
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
